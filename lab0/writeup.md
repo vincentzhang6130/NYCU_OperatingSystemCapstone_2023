@@ -102,3 +102,5 @@ What is the difference between  ELF files and kernel image? `Answer from ChatGPT
 
 https://ivanagyro.medium.com/elf-executable-and-linkable-format-%E5%AD%B8%E7%BF%92%E9%80%94%E5%BE%91%E8%88%87%E8%B3%87%E6%BA%90-a552e1679d8f
 
+
+https://tupelo-shen.github.io/2020/03/08/linux%E5%86%85%E6%A0%B81-GNU%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8_X86-64&ARM/
