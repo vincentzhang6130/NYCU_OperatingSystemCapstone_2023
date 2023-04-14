@@ -9,9 +9,12 @@
 
 >https://oscapstone.github.io/labs/lab1.html#
 
-## Ex1
+## Basic Exercise 1 - Basic Initialization
  
 - 需了解用簡易的 boot程式，將我們自己寫的kernel code 載入到memory
+
+- 將bss 段的變數都設為0
+
 
 ## Ex1 Reference
 [BIOS, BootManager, Bootstrap與Bootloader的差別](http://mark-shih.blogspot.com/2011/10/bios-bootmanager-bootstrapbootloader.html)
