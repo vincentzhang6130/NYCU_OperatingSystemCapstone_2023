@@ -13,10 +13,11 @@ int cli_cmd_strcmp(const char *str1, const char* str2){
     int i;
     for(i=0; str1[i]!='\0' && str2[i]!='\0'; i++){
         if(str1[i] != str2[i]){
-            return str1[i] - str2[i]; 
+            return (int)(str1[i] - str2[i]); 
         }
     }
-    return str1[i] - str2[i]; 
+    //轉型純粹是怕不同編譯器下，可能會出錯
+    return (int)(str1[i] - str2[i]); 
 }
 
 void cli_cmd_clear(char*, int){
@@ -27,16 +28,16 @@ void cli_cmd_read(char*){
 }
 void cli_cmd_exec(char* buffer){
     
-    if(cli_cmd_strcmp(buffer, "hello")){
+    if(cli_cmd_strcmp(buffer, "hello")==0){
         do_cmd_hello();
     }
-    else if(cli_cmd_strcmp(buffer, "help")){
+    else if(cli_cmd_strcmp(buffer, "help")==0){
         do_cmd_help();
     }
-    else if(cli_cmd_strcmp(buffer, "info")){
+    else if(cli_cmd_strcmp(buffer, "info")==0){
         do_cmd_info();
     }
-    else if(cli_cmd_strcmp(buffer, "reboot")){
+    else if(cli_cmd_strcmp(buffer, "reboot")==0){
         do_cmd_reboot();
     }
     
@@ -54,7 +55,7 @@ void do_cmd_hello(){
     uart_puts("Hello World !\n");
 }
 void do_cmd_info(){
-
+    /* 透過 mailbox 拿到硬體資訊 */
 }
 
 void do_cmd_reboot(){
