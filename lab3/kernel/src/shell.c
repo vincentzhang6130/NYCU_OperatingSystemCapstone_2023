@@ -76,6 +76,6 @@ void do_cmd_setTimeout(){
 
 /*這是讓core timer 每兩秒就對 cpu 發出中斷*/
 void do_cmd_set2sAlert(){
-
+    
     add_timer();
 }

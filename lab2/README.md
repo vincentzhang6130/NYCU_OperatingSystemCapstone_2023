@@ -21,7 +21,7 @@
 
 
 
-我的理解 intial ramdisk 是要先對想要load進來的文件先作一個歸檔壓縮，再讓後續可以利用這個資料結構
+intial ramdisk 是要先對想要load進來的文件先作一個歸檔壓縮，再讓後續可以利用這個資料結構
 
 CPIO
 > https://www.mankier.com/5/cpio
@@ -33,3 +33,6 @@ CPIO
 > http://blog.ittraining.com.tw/2019/10/linux-device-driver-linux-open-firmware.html
 
 > https://e-mailky.github.io/2016-12-06-dts-introduce#%E5%9B%9B--%E8%AE%BE%E5%A4%87%E6%A0%91%E6%BA%90%E7%A0%81-dts-%E8%A1%A8%E7%A4%BA
+
+
+> https://github.com/stweil/raspberrypi-documentation/blob/master/configuration/device-tree.md
