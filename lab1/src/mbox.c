@@ -6,7 +6,7 @@ int mbox_call(mbox_channel_type channel, volatile unsigned int *mailbox){
     // 這段code 其實是在模擬arm 與gpu的互動行為，包含了 arm寄信 gpu(video core)收信的行為
 
     //把 message 讀取出來
-    unsigned int message = mailbox;
+    unsigned int message = (unsigned long) mailbox; //因為是用aarch64編譯，所以地址要先轉型，才不會有警告
     // 把 message最低4位清掉，填上channel，這個位址就是mail的內容 這樣硬體才可以藉由MBOX_WRITE知道
     // 現在要 mailbox 做什麼行為 （ex. ARM to VideoCore)
     message &= ~(0xF);

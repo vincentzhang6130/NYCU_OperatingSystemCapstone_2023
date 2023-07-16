@@ -4,7 +4,6 @@ SECTIONS
     .text : { *(.text.boot) *(.text) }
     .rodata : { *(.rodata) }
     .data : { *(.data) }
-
     .bss : {
         . = ALIGN(16);
         __bss_start = .;
