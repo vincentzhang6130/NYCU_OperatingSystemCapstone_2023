@@ -54,10 +54,11 @@ typedef enum {
 
 } mbox_tag_type;
 
-
 #define MBOX_TAG_REQUEST_CODE 0x00000000
 #define MBOX_TAG_LAST_BYTE    0x00000000
 
-int mbox_call(mbox_channel_type, unsigned int);
+int mbox_call(mbox_channel_type channel, volatile unsigned int *mailbox);
+void get_board_revision();
+void get_arm_memory();
 
 #endif /*_MBOX_H_*/

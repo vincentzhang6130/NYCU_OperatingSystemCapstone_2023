@@ -40,18 +40,41 @@ void uart_init(){
 }
 
 char uart_recv() {
-  
+    
+    while(!(*AUX_MU_LSR_REG & 0x01)){}; 
+    char r = (char)(*AUX_MU_IO_REG);
+    return r=='\r'?'\n':r;
 }
 
 void uart_send(unsigned int c) {
-
+    //Check 6th bits in register, transmitter idle(1) or not,
+    // 如果idle代表沒有待傳的 可以傳資料
+    while(!(*AUX_MU_LSR_REG & 0x20)){}; //LSR: Line Status Register
+    *AUX_MU_IO_REG = c; 
 }
 
 void uart_puts(char *str) {
 
+    while(*str!='\0'){
+        
+        if(*str=='\n'){
+            uart_send('\r');
+        }
+        uart_send(*str);
+        str++;
+    }
 }
 
 void uart_2hex(unsigned int d) {
 
+    // d為要轉成16進位字串的數值
+    unsigned int n;
+    int c;
+    for(c=28; c>=0; c-=4){ //一次處理 4個bits
+        n = (d>>c) & 0xF; //從最左邊開始取出
+        n += n>9 ? 0x37 : 0x30; //小於9就加48, 因為'0' ascii是48
+        // 大於9:例如10 加55 就會轉成 'A' ascii是65
+        uart_send(n);
+    }
 }
 

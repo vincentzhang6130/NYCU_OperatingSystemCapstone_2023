@@ -3,6 +3,7 @@
 #include "heap.h"
 #include "u_string.h"
 #include "dtb.h"
+#include "cpio.h"
 
 
 char* dtb_ptr;
@@ -10,7 +11,7 @@ char* dtb_ptr;
 void main(char* arg){ // 這個放參數的方法
     char input_buffer[CMD_MAX_LEN];
     dtb_ptr = arg;
-    // ??
+    // flattened device tree (fdt)
     fdt_traverse(initramfs_callback);
 
     uart_init();

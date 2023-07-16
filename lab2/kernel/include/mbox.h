@@ -1,8 +1,6 @@
 #ifndef _MBOX_H_
 #define _MBOX_H_
 
-extern volatile unsigned int pt[64];
-
 // Mailbox Register MMIO
 // https://jsandler18.github.io/extra/mailbox.html
 // include/bcm2837/rpi_mbox.h
@@ -59,5 +57,7 @@ typedef enum {
 #define MBOX_TAG_LAST_BYTE    0x00000000
 
 int mbox_call(mbox_channel_type, unsigned int);
+
+
 
 #endif /*_MBOX_H_*/

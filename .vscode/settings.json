@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "rpi_gpio.h": "c"
+        "rpi_gpio.h": "c",
+        "system_error": "c",
+        "mbox.h": "c"
     }
 }
