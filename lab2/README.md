@@ -25,6 +25,10 @@ intial ramdisk 是要先對想要load進來的文件先作一個歸檔壓縮，�
 
 CPIO
 > https://www.mankier.com/5/cpio
+
+實作ls與cat前需要先了解其格式，把這篇看懂就能知道其歸檔的方式與header的規格。
+> https://www.systutorials.com/docs/linux/man/5-cpio/
+
 ## Advanced Exercises
 
 ### Ex2 Device Tree
