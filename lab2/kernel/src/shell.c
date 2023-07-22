@@ -2,13 +2,16 @@
 #include "uart1.h"
 #include "mbox.h"
 #include "power.h"
+#include "cpio.h"
 
 CLI_CMDS cmd_list [CLI_MAX_CMD] = {
 
     {.command = "hello", .help ="Print Hello World!"},
     {.command = "help",  .help ="Show all available commands"},
     {.command = "info",  .help ="Get device information via mailbox"},
-    {.command = "reboot", .help="Reboot the device"}
+    {.command = "reboot", .help="Reboot the device"},
+    {.command = "ls", .help="List the rootfs"},
+    {.command = "cat", .help="Show a file content"}
 };
 
 
@@ -106,11 +109,65 @@ void do_cmd_reboot(){
 void do_cmd_rootls(){
 
     /*把root fs 打印出來*/
+    unsigned int* header_ptr = (unsigned int*) CPIO_DEFAULT_ADDRESS;
+    struct cpio_newc_header* newc_header_ptr = (struct cpio_newc_header*)header_ptr;
+    
+    int namesize;
+    int filesize;
 
+    while(cpio_newc_parse_header(newc_header_ptr)){
+
+        // newc_header_ptr
+        namesize = hex_to_dec(newc_header_ptr->c_namesize);
+        filesize = hex_to_dec(newc_header_ptr->c_filesize);
+
+        newc_header_ptr += sizeof(struct cpio_newc_header);
+        for(int i=0; i<namesize; i++){
+            uart_puts((char*) (newc_header_ptr+i));
+        }
+        uart_puts("\n");
+        // 印完file name就可以跨過檔名
+        newc_header_ptr += namesize;
+        // 再跨過file 本身資料的部份
+        newc_header_ptr += filesize;
+        // 對齊到4 byte 倍數
+        align_to_four(newc_header_ptr);
+    }
 }
 
-void do_cmd_cat(){
+void do_cmd_cat(char* file_to_cat){
+    // 傳入檔名
 
+    unsigned int* header_ptr = (unsigned int*) CPIO_DEFAULT_ADDRESS;
+    struct cpio_newc_header* newc_header_ptr = (struct cpio_newc_header*)header_ptr;
     
+    int namesize;
+    int filesize;
+
+    while(cpio_newc_parse_header(newc_header_ptr)){
+
+        // newc_header_ptr
+        namesize = hex_to_dec(newc_header_ptr->c_namesize);
+        filesize = hex_to_dec(newc_header_ptr->c_filesize);
+        // 跨過 header // 停在放檔名的位置
+        newc_header_ptr += sizeof(struct cpio_newc_header);
+        if(strcpy_cpio(newc_header_ptr, file_to_cat, filesize)){
+            // 可以跨過檔名
+            newc_header_ptr += namesize;
+            // 印出檔案內容
+            for(int i=0; i<filesize; i++){
+                uart_puts((char*) (newc_header_ptr+i));
+            }
+            break;
+        }
+        else{
+            // 可以跨過檔名
+            newc_header_ptr += namesize;
+            // 再跨過file 本身資料的部份
+            newc_header_ptr += filesize;
+            // 對齊到4 byte 倍數
+            align_to_four(newc_header_ptr);
+        }
+    }
 
 }

@@ -23,11 +23,20 @@
 
 intial ramdisk 是要先對想要load進來的文件先作一個歸檔壓縮，再讓後續可以利用這個資料結構
 
+如何知道有多少個檔案？ 就看還有沒有magic number
+
+
 CPIO
 > https://www.mankier.com/5/cpio
 
 實作ls與cat前需要先了解其格式，把這篇看懂就能知道其歸檔的方式與header的規格。
 > https://www.systutorials.com/docs/linux/man/5-cpio/
+
+
+- 要開始實作這裡時在思考為什麼可以直接把cpio 歸檔的位置給轉型成指向我們自定義的struct
+，加上struct本身編譯器會對其padding，不知道該如何肯定memory中擺放byte的順序是否如同規格書所示。
+- 先實做看看，或許這個假設是多餘的。
+
 
 ## Advanced Exercises
 
@@ -40,3 +49,8 @@ CPIO
 
 
 > https://github.com/stweil/raspberrypi-documentation/blob/master/configuration/device-tree.md
+
+
+
+>https://abcamus.github.io/2016/12/28/uboot%E8%AE%BE%E5%A4%87%E6%A0%91-%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/
+>https://blog.csdn.net/wangdapao12138/article/details/82934127
