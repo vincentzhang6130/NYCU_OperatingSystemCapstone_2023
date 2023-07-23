@@ -19,8 +19,8 @@ struct cpio_newc_header {
 };
 
 
-
 #define CPIO_DEFAULT_ADDRESS 0x8000000
+#define CPIO_MAGIC_NUMBER "070701"
 
 void cpio_newc_parse_header();
 

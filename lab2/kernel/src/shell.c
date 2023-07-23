@@ -144,14 +144,14 @@ void do_cmd_cat(char* file_to_cat){
     int namesize;
     int filesize;
 
-    while(cpio_newc_parse_header(newc_header_ptr)){
+    while(cpio_newc_parse_header(newc_header_ptr)==1){
 
         // newc_header_ptr
         namesize = hex_to_dec(newc_header_ptr->c_namesize);
         filesize = hex_to_dec(newc_header_ptr->c_filesize);
         // 跨過 header // 停在放檔名的位置
         newc_header_ptr += sizeof(struct cpio_newc_header);
-        if(strcpy_cpio(newc_header_ptr, file_to_cat, filesize)){
+        if(strncmp(newc_header_ptr, file_to_cat, filesize)){
             // 可以跨過檔名
             newc_header_ptr += namesize;
             // 印出檔案內容
