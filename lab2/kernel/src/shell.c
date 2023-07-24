@@ -69,6 +69,11 @@ void cli_cmd_exec(char* buffer){
     else if(cli_cmd_strcmp(buffer, "ls")==0){
         do_cmd_rootls();
     }
+    // cat 是有參數的
+    if(cli_cmd_parse_cat(buffer)){
+        char* file_to_cat = get_cat_file_name(buffer);
+        do_cmd_cat(file_to_cat);
+    }
     
 }
 void cli_print_banner(){

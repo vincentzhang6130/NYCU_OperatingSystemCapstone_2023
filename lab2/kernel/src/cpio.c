@@ -1,14 +1,22 @@
 #include "cpio.h"
 
 
-void initramfs_callback(){
-
-
-}
-
 int hex_to_dec(char* hex){
+    
+    int decimal_num; 
 
-    // 參考lab1
+    while(!*hex){
+        int trans_value = 0;
+        if(*hex >= 65){
+            trans_value = (*hex) - 55; // A->10
+        }
+        else{
+            trans_value = (*hex) - 48;
+        }
+        decimal_num += trans_value;
+        hex++;
+    }
+    return decimal_num;
 }
 
 void align_to_four(struct cpio_newc_header** newc_header_ptr){
@@ -23,15 +31,28 @@ void align_to_four(struct cpio_newc_header** newc_header_ptr){
 }
 
 int strncmp(char* str1, char* str2, int len){
-    // 相同就回傳 0
+    
+    // 在一半發現不同
+    int count = 0;
+    while (!*str1 && !*str2 && *str1==*str2 && count<len){
 
-    for(int count=0; count<len; str1++, str2++, count++){
-        if(){
-
-        }
-
+        str1++;
+        str2++;
+        count++;
     }
-
+    if(count == len){
+        return 0;
+    }
+    if(!*str1){
+        // str2 longer
+        return -1;   
+    }
+    else if(!*str2){
+        // str1 longer
+        return 1;
+    }
+    // 一樣長出現不同的
+    return (*str1) - (*str2);
 }
 
 

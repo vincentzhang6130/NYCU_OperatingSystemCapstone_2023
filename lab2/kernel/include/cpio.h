@@ -22,6 +22,10 @@ struct cpio_newc_header {
 #define CPIO_DEFAULT_ADDRESS 0x8000000
 #define CPIO_MAGIC_NUMBER "070701"
 
-void cpio_newc_parse_header();
+int cpio_newc_parse_header(struct cpio_newc_header* header);
+int hex_to_dec(char* hex);
+void align_to_four(struct cpio_newc_header** newc_header_ptr);
+int strncmp(char* str1, char* str2, int len);
+
 
 #endif
